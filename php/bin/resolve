@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Read the following format from stdin seperated by new lines
+ *   - script's file name. Used to determine composer autoload path.
+ *   - script's contents. New lines are converted to spaces.
+ *   - line of script under cursor
+ *   - word under cursor
+ */
+require __DIR__ . '/../vendor/autoload.php';
+
+// Don't wait for STDIN
+stream_set_blocking(STDIN, 0);
+
+$inputNames = ['currentDirectory',  'lineNumber', 'currentWord', 'fileContents'];
+$inputs     = explode("\n", stream_get_contents(STDIN), count($inputNames));
+
+if (count($inputNames) != count($inputs)) {
+  exit(1);
+}
+
+$inputs   = array_combine($inputNames, $inputs);
+$resolver = new \PhpExplorer\Resolver;
+$result   = $resolver->resolveUnderCursor(
+  $inputs['currentDirectory'],
+  $inputs['fileContents'],
+  $inputs['lineNumber'],
+  \PhpExplorer\Resolver::parseCursorWord($inputs['currentWord'])
+);
+
+if (!empty($result)) {
+  echo implode("\n", $result);
+  exit(0);
+}
+
+exit(1);

@@ -1,0 +1,18 @@
+{
+    "require": {
+        "nikic/php-parser": "1.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
+    },
+    "autoload-dev" : {
+        "psr-4": {
+            "PhpExplorerTest\\": "php/tests"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "PhpExplorer\\": "src/PhpExplorer"
+        }
+    }
+}

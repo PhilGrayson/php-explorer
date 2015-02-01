@@ -1,0 +1,6 @@
+bin/
+doctrine/
+phpunit/
+sebastian/
+symfony/
+composer/include_paths.php
