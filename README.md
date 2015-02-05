@@ -35,3 +35,10 @@ Assuming [Pathogen](https://github.com/tpope/vim-pathogen)
     $this->field->functionA()
                 ->functionB();
 ```
+
+* Trigger a phpunit test under the cursor. Perhaps `<leader>rt` *Run Test*. What about data providers?
+```
+    public function testPatience()
+    {
+        $this->assertEqual(42, rand(0, 100));
+    }
