@@ -42,5 +42,8 @@ Assuming [Pathogen](https://github.com/tpope/vim-pathogen)
     {
         $this->assertEqual(42, rand(0, 100));
     }
+```
 
 * Add Submlime Text bindings
+
+* Handle functions from traits, recursing traits if necessary.
