@@ -47,3 +47,9 @@ Assuming [Pathogen](https://github.com/tpope/vim-pathogen)
 * Add Submlime Text bindings
 
 * Handle functions from traits, recursing traits if necessary.
+* 
+* Handle class constants
+* 
+* Auto-infer namespace imports - see [bradfitz/goimports](https://github.com/bradfitz/goimports)
+* 
+* Auto delete unused namespaces. Code sniffer [already did this](https://github.com/fabpot/PHP-CS-Fixer/blob/master/Symfony/CS/Fixer/Symfony/UnusedUseFixer.php)
