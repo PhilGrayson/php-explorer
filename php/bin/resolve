@@ -17,21 +17,40 @@ $inputNames = ['currentDirectory',  'lineNumber', 'currentWord', 'fileContents']
 $inputs     = explode("\n", stream_get_contents(STDIN), count($inputNames));
 
 if (count($inputNames) != count($inputs)) {
-  exit(1);
+    exit(1);
 }
 
 $inputs   = array_combine($inputNames, $inputs);
 $resolver = new \PhpExplorer\Resolver;
-$result   = $resolver->resolveUnderCursor(
-  $inputs['currentDirectory'],
-  $inputs['fileContents'],
-  $inputs['lineNumber'],
-  \PhpExplorer\Resolver::parseCursorWord($inputs['currentWord'])
-);
 
-if (!empty($result)) {
-  echo implode("\n", $result);
-  exit(0);
+try {
+    $result = $resolver->resolveUnderCursor(
+        $inputs['currentDirectory'],
+        $inputs['fileContents'],
+        $inputs['lineNumber'],
+        \PhpExplorer\Resolver::parseCursorWord($inputs['currentWord'])
+    );
+
+    array_unshift($result, 'result');
+} catch (\PhpParser\Error $e) {
+    $result = array(
+        'error',
+        'Could not goto definition',
+        $e->getMessage()
+    );
+} catch (\Exception $e) {
+    $result = array(
+        'error',
+        $e->getMessage()
+    );
 }
 
-exit(1);
+if (!empty($result)) {
+    echo implode("\n", $result);
+}
+
+if ('error' == $result[0]) {
+    exit(1);
+}
+
+exit(0);
